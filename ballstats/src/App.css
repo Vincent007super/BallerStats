@@ -21,6 +21,7 @@ body {
   background: aliceblue;
   min-height: 100vh;
   font-weight: 500;
+  overflow-x: hidden;
 }
 
 /* Basketball Theme Colors */
@@ -224,7 +225,7 @@ h6 {
 }
 
 .MuiButton-contained {
-  background: var(--gradient-fire) !important;
+  /* background: var(--gradient-fire) !important; */
   background-size: 200% 200% !important;
   color: white !important;
   border: 2px solid var(--basketball-orange) !important;
@@ -452,7 +453,7 @@ h6 {
 
 /* Tab Enhancements - Court Style */
 .MuiTabs-root {
-  background: linear-gradient(90deg, var(--court-wood) 0%, var(--basketball-leather) 100%) !important;
+  /* background: linear-gradient(90deg, var(--court-wood) 0%, var(--basketball-leather) 100%) !important; */
   border-radius: 15px !important;
   margin-bottom: 30px !important;
   box-shadow: var(--shadow-court) !important;
@@ -489,6 +490,12 @@ h6 {
 .basketball-theme {
   background: var(--gradient-court);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
   position: relative;
   overflow-x: hidden;
 }
@@ -526,11 +533,6 @@ h6 {
   animation: courtLines 10s linear infinite;
 }
 
-/* Loading and Animation Classes */
-.fade-in {
-  animation: fadeIn 0.8s ease-in-out;
-}
-
 .slide-up {
   animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -564,10 +566,12 @@ h6 {
 
 @keyframes slideUp {
   from {
+    transform: rotate(0deg);
     opacity: 0;
     transform: translateY(40px);
   }
   to {
+    transform: rotate(360deg);
     opacity: 1;
     transform: translateY(0);
   }
