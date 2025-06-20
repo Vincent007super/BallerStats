@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Card, CardContent, Tabs, Tab, Grid } from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import {
@@ -11,6 +11,8 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import PlayerStats from '../components/PlayerStats';
+import TrainingData from '../components/TrainingData';
 
 ChartJS.register(
   CategoryScale,
@@ -23,7 +25,44 @@ ChartJS.register(
 );
 
 const Stats = () => {
-  const [tabValue, setTabValue] = React.useState(0);
+  const [tabValue, setTabValue] = useState(0);
+  const [setChartData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchChartData = async () => {
+      try {
+        const response = await fetch('http://localhost/backend/api/get_player_stats.php');
+        const data = await response.json();
+        
+        if (data.success) {
+          // Transform the data for the chart
+          const playerData = data.data[0] || {}; // Using first player's data for example
+          setChartData({
+            labels: ['Points', 'Assists', 'Rebounds', '3PT%', 'FG%'],
+            datasets: [{
+              label: 'Player Statistics',
+              data: [
+                playerData.avg_points,
+                playerData.avg_assists,
+                playerData.avg_rebounds,
+                playerData.avg_three_point,
+                playerData.avg_fg_percentage
+              ],
+              borderColor: '#1976d2',
+              tension: 0.4
+            }]
+          });
+        }
+      } catch (err) {
+        console.error('Failed to fetch chart data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchChartData();
+  }, []);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -69,8 +108,8 @@ const Stats = () => {
   ];
 
   return (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold' }}>
+    <Box sx={{ p: 2, maxWidth: '100%', margin: '0 auto', pb: 7 }}>
+      <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold' }}>
         Statistics
       </Typography>
 
@@ -80,64 +119,31 @@ const Stats = () => {
         variant="fullWidth"
         sx={{ mb: 3 }}
       >
-        <Tab label="Team" />
-        <Tab label="Players" />
+        <Tab label="Overview" />
+        <Tab label="Player Stats" />
+        <Tab label="Training & Reflections" />
       </Tabs>
 
       {tabValue === 0 && (
-        <>
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Line data={chartData} options={chartOptions} />
-            </CardContent>
-          </Card>
-
-          <Grid container spacing={2}>
-            {statsCards.map((stat, index) => (
-              <Grid item xs={6} key={index}>
-                <Card>
-                  <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
-                      {stat.label}
-                    </Typography>
-                    <Typography variant="h4" component="div">
-                      {stat.value}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </>
-      )}
-
-      {tabValue === 1 && (
         <Grid container spacing={2}>
-          {['John Doe', 'Mike Smith', 'Chris Johnson'].map((player, index) => (
-            <Grid item xs={12} key={index}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6">{player}</Typography>
-                  <Grid container spacing={1}>
-                    <Grid item xs={4}>
-                      <Typography color="textSecondary">PPG</Typography>
-                      <Typography>18.5</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Typography color="textSecondary">RPG</Typography>
-                      <Typography>7.2</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Typography color="textSecondary">APG</Typography>
-                      <Typography>5.4</Typography>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Performance Overview
+                </Typography>
+                <Box sx={{ height: 300 }}>
+                  {chartData && <Line data={chartData} options={chartOptions} />}
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
       )}
+
+      {tabValue === 1 && <PlayerStats />}
+      
+      {tabValue === 2 && <TrainingData />}
     </Box>
   );
 };

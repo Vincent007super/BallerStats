@@ -1,16 +1,32 @@
-import React from 'react';
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Card, CardContent, Grid, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [quickStats, setQuickStats] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const quickStats = [
-    { label: 'Games', value: '24' },
-    { label: 'Win Rate', value: '68%' },
-    { label: 'Avg Points', value: '82.5' },
-    { label: 'Players', value: '15' }
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/backend/get_stats.php');
+        const data = await response.json();
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setQuickStats(data.stats);
+        }
+      } catch (err) {
+        setError('Failed to fetch statistics');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+}, []);
 
   return (
     <Box sx={{ p: 2, maxWidth: '100%', margin: '0 auto' }}>
@@ -20,7 +36,15 @@ const Home = () => {
 
       {/* Quick Stats Grid */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        {quickStats.map((stat, index) => (
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', p: 3 }}>
+            <CircularProgress />
+          </Box>
+        ) : error ? (
+          <Typography color="error" sx={{ width: '100%', textAlign: 'center', p: 2 }}>
+            {error}
+          </Typography>
+        ) : quickStats.map((stat, index) => (
           <Grid item xs={6} key={index}>
             <Card
               sx={{
