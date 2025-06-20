@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -28,18 +30,18 @@ const SignUp = () => {
   });
   const [error, setError] = useState('');
 
-  const handleUserTypeChange = (event, newUserType) => {
+  const handleUserTypeChange = (event:any, newUserType:any) => {
     if (newUserType !== null) {
       setUserType(newUserType);
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     setError('');
 
