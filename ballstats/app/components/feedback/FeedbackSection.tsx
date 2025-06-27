@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import {
   Box,
@@ -16,12 +18,20 @@ import {
 } from '@mui/material';
 import { useAuth } from '../auth/AuthContext';
 
-const FeedbackSection = () => {
-  const { user } = useAuth();
-  const [newComment, setNewComment] = useState('');
+interface Feedback {  
+  id: number;
+  from: string;
+  to: string;
+  message: string;
+  training: string;
+  date: string;
+}
 
-  // Mock feedback data - will be replaced with database data
-  const [feedbacks] = useState([
+const FeedbackSection: React.FC = () => {
+  const { user } = useAuth();
+  const [newComment, setNewComment] = useState<string>('');
+
+  const [feedbacks] = useState<Feedback[]>([
     {
       id: 1,
       from: 'Coach Smith',
@@ -40,9 +50,8 @@ const FeedbackSection = () => {
     }
   ]);
 
-  const handleSubmitFeedback = (e) => {
+  const handleSubmitFeedback = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Integrate with backend to save feedback
     setNewComment('');
   };
 
@@ -52,7 +61,6 @@ const FeedbackSection = () => {
         Performance Feedback & Training Suggestions
       </Typography>
 
-      {/* Add New Feedback */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
           <Typography variant="subtitle1" gutterBottom>
@@ -64,25 +72,22 @@ const FeedbackSection = () => {
               multiline
               rows={3}
               variant="outlined"
-              placeholder={user?.userType === 'coach' 
-                ? 'Provide feedback and training suggestions for your player...'
-                : 'Share your concerns or areas you want to improve...'}
+              placeholder={
+                user?.userType === 'coach'
+                  ? 'Provide feedback and training suggestions for your player...'
+                  : 'Share your concerns or areas you want to improve...'
+              }
               value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
+              onChange={(e:any) => setNewComment(e.target.value)}
               sx={{ mb: 2 }}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
+            <Button type="submit" variant="contained" color="primary">
               Submit Feedback
             </Button>
           </Box>
         </CardContent>
       </Card>
 
-      {/* Feedback List */}
       <List>
         {feedbacks.map((feedback, index) => (
           <React.Fragment key={feedback.id}>
@@ -96,29 +101,15 @@ const FeedbackSection = () => {
                     <Typography component="span" variant="subtitle1">
                       {feedback.from}
                     </Typography>
-                    <Chip
-                      label={feedback.date}
-                      size="small"
-                      sx={{ ml: 1 }}
-                    />
+                    <Chip label={feedback.date} size="small" sx={{ ml: 1 }} />
                   </Box>
                 }
                 secondary={
                   <>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                      sx={{ display: 'block', mt: 1 }}
-                    >
+                    <Typography component="span" variant="body2" color="text.primary" sx={{ display: 'block', mt: 1 }}>
                       {feedback.message}
                     </Typography>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      color="primary"
-                      sx={{ display: 'block', mt: 1 }}
-                    >
+                    <Typography component="span" variant="body2" color="primary" sx={{ display: 'block', mt: 1 }}>
                       {feedback.training}
                     </Typography>
                   </>

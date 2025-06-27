@@ -18,7 +18,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Analysis = () => {
+const Analysis: React.FC = () => {
   const shotDistributionData = {
     labels: ['3-Pointers', '2-Pointers', 'Free Throws'],
     datasets: [
@@ -69,7 +69,6 @@ const Analysis = () => {
         Performance Analysis
       </Typography>
 
-      {/* Key Insights */}
       <Typography variant="h6" sx={{ mb: 2 }}>
         Key Insights
       </Typography>
@@ -102,7 +101,6 @@ const Analysis = () => {
         ))}
       </Grid>
 
-      {/* Shot Distribution */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -114,7 +112,6 @@ const Analysis = () => {
         </CardContent>
       </Card>
 
-      {/* Strengths & Weaknesses */}
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Card>
