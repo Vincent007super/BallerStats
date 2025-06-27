@@ -7,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import PersonIcon from '@mui/icons-material/Person';
+import './globals.css';
 
 import Home from './pages/Home';
 import Stats from './pages/Stats';
