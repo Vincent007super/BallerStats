@@ -25,7 +25,7 @@ ChartJS.register(
 const Stats = () => {
   const [tabValue, setTabValue] = React.useState(0);
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (event:any, newValue:any) => {
     setTabValue(newValue);
   };
 

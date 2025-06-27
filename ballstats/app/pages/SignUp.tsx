@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -10,13 +12,57 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Alert,
+  MenuItem,
 } from '@mui/material';
 import { useAuth } from '../components/auth/AuthContext';
+
+const NBA_TEAMS = [
+  'Atlanta Hawks',
+  'Boston Celtics',
+  'Brooklyn Nets',
+  'Charlotte Hornets',
+  'Chicago Bulls',
+  'Cleveland Cavaliers',
+  'Dallas Mavericks',
+  'Denver Nuggets',
+  'Detroit Pistons',
+  'Golden State Warriors',
+  'Houston Rockets',
+  'Indiana Pacers',
+  'LA Clippers',
+  'Los Angeles Lakers',
+  'Memphis Grizzlies',
+  'Miami Heat',
+  'Milwaukee Bucks',
+  'Minnesota Timberwolves',
+  'New Orleans Pelicans',
+  'New York Knicks',
+  'Oklahoma City Thunder',
+  'Orlando Magic',
+  'Philadelphia 76ers',
+  'Phoenix Suns',
+  'Portland Trail Blazers',
+  'Sacramento Kings',
+  'San Antonio Spurs',
+  'Toronto Raptors',
+  'Utah Jazz',
+  'Washington Wizards',
+];
+
+const NBA_POSITIONS = [
+  'Point Guard (PG)',
+  'Shooting Guard (SG)',
+  'Small Forward (SF)',
+  'Power Forward (PF)',
+  'Center (C)',
+];
+
+type UserType = 'player' | 'coach';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
-  const [userType, setUserType] = useState('player');
+  const [userType, setUserType] = useState<UserType>('player');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,18 +74,18 @@ const SignUp = () => {
   });
   const [error, setError] = useState('');
 
-  const handleUserTypeChange = (event, newUserType) => {
+  const handleUserTypeChange = (event: React.MouseEvent<HTMLElement>, newUserType: UserType | null) => {
     if (newUserType !== null) {
       setUserType(newUserType);
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     setError('');
 
@@ -156,6 +202,7 @@ const SignUp = () => {
             />
 
             <TextField
+              select
               fullWidth
               label="Team"
               variant="outlined"
@@ -164,10 +211,17 @@ const SignUp = () => {
               value={formData.team}
               onChange={handleInputChange}
               required
-            />
+            >
+              {NBA_TEAMS.map((team) => (
+                <MenuItem key={team} value={team}>
+                  {team}
+                </MenuItem>
+              ))}
+            </TextField>
 
             {userType === 'player' && (
               <TextField
+                select
                 fullWidth
                 label="Position"
                 variant="outlined"
@@ -175,7 +229,14 @@ const SignUp = () => {
                 name="position"
                 value={formData.position}
                 onChange={handleInputChange}
-              />
+                required
+              >
+                {NBA_POSITIONS.map((pos) => (
+                  <MenuItem key={pos} value={pos}>
+                    {pos}
+                  </MenuItem>
+                ))}
+              </TextField>
             )}
 
             {userType === 'coach' && (

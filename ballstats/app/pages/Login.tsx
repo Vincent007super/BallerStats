@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -21,13 +23,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleUserTypeChange = (event, newUserType) => {
+  const handleUserTypeChange = (event:any, newUserType:any) => {
     if (newUserType !== null) {
       setUserType(newUserType);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     setError('');
 

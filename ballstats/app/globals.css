@@ -1,0 +1,326 @@
+/* Import Google Fonts - Luxe Sportief */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@400;600&display=swap');
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', 'Oswald', Arial, sans-serif;
+  line-height: 1.6;
+  color: #1a2340;
+  background: linear-gradient(120deg, #f8fafc 0%, #eaf1fb 100%);
+  min-height: 100vh;
+  font-weight: 500;
+  overflow-x: hidden;
+}
+
+:root {
+  --sport-blue: #3a7bd5;
+  --sport-blue-light: #eaf1fb;
+  --sport-gold: #f6c700;
+  --sport-gold-light: #fffbe6;
+  --sport-gray: #f5f6fa;
+  --sport-white: #ffffff;
+  --sport-shadow: 0 4px 24px rgba(58, 123, 213, 0.08);
+  --sport-shadow-gold: 0 0 12px 2px rgba(246, 199, 0, 0.12);
+  --sport-gradient: linear-gradient(120deg, #f8fafc 0%, #eaf1fb 100%);
+  --sport-gradient-blue: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+  --sport-gradient-gold: linear-gradient(90deg, #f6c700 0%, #fffbe6 100%);
+}
+
+/* Luxe Sportieve Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.5em;
+  color: var(--sport-blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.75rem; }
+h5 { font-size: 1.5rem; }
+h6 { font-size: 1.25rem; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.7rem; }
+  h3 { font-size: 1.3rem; }
+}
+
+/* Animations */
+@keyframes fadeInSport {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glowGold {
+  0%, 100% { box-shadow: var(--sport-shadow-gold); }
+  50% { box-shadow: 0 0 32px 4px rgba(246, 199, 0, 0.22); }
+}
+
+/* Card Style */
+.MuiCard-root, .stats-card {
+  border-radius: 18px !important;
+  box-shadow: var(--sport-shadow) !important;
+  background: var(--sport-white) !important;
+  border: 2px solid var(--sport-blue-light) !important;
+  color: #1a2340 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: box-shadow 0.4s, transform 0.4s;
+  animation: fadeInSport 0.8s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.MuiCard-root:hover, .stats-card:hover {
+  /* Geen hover-effecten voor login/signup cards */
+}
+
+/* Buttons */
+.MuiButton-root {
+  border-radius: 25px !important;
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  padding: 14px 32px !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 1px !important;
+  background: var(--sport-gradient-blue) !important;
+  color: var(--sport-white) !important;
+  border: 2px solid var(--sport-blue) !important;
+  box-shadow: var(--sport-shadow) !important;
+  transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275) !important;
+  animation: fadeInSport 1s;
+}
+.MuiButton-root:hover {
+  background: var(--sport-gradient-gold) !important;
+  color: var(--sport-blue) !important;
+  box-shadow: var(--sport-shadow-gold) !important;
+  border-color: var(--sport-gold) !important;
+}
+
+.MuiButton-outlined {
+  background: var(--sport-white) !important;
+  color: var(--sport-blue) !important;
+  border: 2px solid var(--sport-blue) !important;
+}
+.MuiButton-outlined:hover {
+  background: var(--sport-gold-light) !important;
+  color: var(--sport-blue) !important;
+  border-color: var(--sport-gold) !important;
+}
+
+/* Bottom Navigation */
+.MuiBottomNavigation-root {
+  background: var(--sport-white) !important;
+  border-top: 2px solid var(--sport-blue-light) !important;
+  box-shadow: 0 -4px 24px rgba(58, 123, 213, 0.08) !important;
+  position: relative !important;
+}
+.MuiBottomNavigationAction-root {
+  color: var(--sport-blue) !important;
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  transition: color 0.3s, transform 0.3s !important;
+}
+.MuiBottomNavigationAction-root.Mui-selected {
+  color: var(--sport-gold) !important;
+  transform: scale(1.12) !important;
+  animation: glowGold 2s ease-in-out infinite !important;
+}
+.MuiBottomNavigationAction-root:hover {
+  color: var(--sport-gold) !important;
+  transform: scale(1.06) !important;
+}
+
+/* Forms */
+.MuiTextField-root {
+  margin-bottom: 20px !important;
+}
+.MuiOutlinedInput-root {
+  border-radius: 15px !important;
+  background: var(--sport-gray) !important;
+  border: 2px solid var(--sport-blue-light) !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  font-weight: 500 !important;
+  color: #1a2340 !important;
+  transition: border 0.3s, box-shadow 0.3s !important;
+}
+.MuiOutlinedInput-root:hover, .MuiOutlinedInput-root.Mui-focused {
+  border-color: var(--sport-gold) !important;
+  box-shadow: var(--sport-shadow-gold) !important;
+}
+
+/* Toggle Button */
+.MuiToggleButtonGroup-root {
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: var(--sport-shadow) !important;
+  border: 2px solid var(--sport-blue) !important;
+  background: var(--sport-white) !important;
+}
+.MuiToggleButton-root {
+  border: none !important;
+  background: var(--sport-white) !important;
+  color: var(--sport-blue) !important;
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  transition: background 0.3s, color 0.3s !important;
+}
+.MuiToggleButton-root.Mui-selected {
+  background: var(--sport-gold-light) !important;
+  color: var(--sport-blue) !important;
+  animation: glowGold 2s ease-in-out infinite !important;
+}
+
+/* Stats Value */
+.stats-value {
+  font-family: 'Montserrat', monospace !important;
+  font-size: 2.8rem !important;
+  font-weight: 900 !important;
+  margin: 12px 0 !important;
+  color: var(--sport-gold) !important;
+  text-shadow: 1px 1px 6px rgba(58, 123, 213, 0.08) !important;
+  animation: fadeInSport 1.2s;
+}
+.stats-label {
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-size: 1.1rem !important;
+  opacity: 0.95 !important;
+  font-weight: 400 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: var(--sport-blue);
+}
+
+/* Chart Container */
+.chart-container {
+  background: var(--sport-white) !important;
+  border-radius: 20px !important;
+  padding: 30px !important;
+  box-shadow: var(--sport-shadow) !important;
+  margin-bottom: 30px !important;
+  border: 2px solid var(--sport-blue-light) !important;
+  animation: fadeInSport 1.2s;
+}
+
+/* List Items */
+.MuiListItem-root {
+  border-radius: 15px !important;
+  margin-bottom: 12px !important;
+  background: var(--sport-gray) !important;
+  color: #1a2340 !important;
+  border: 2px solid transparent !important;
+  padding: 16px !important;
+  transition: background 0.3s, border 0.3s, box-shadow 0.3s !important;
+}
+.MuiListItem-root:hover {
+  background: var(--sport-gold-light) !important;
+  border-color: var(--sport-gold) !important;
+  box-shadow: var(--sport-shadow-gold) !important;
+}
+
+/* Avatar */
+.MuiAvatar-root {
+  background: var(--sport-gradient-blue) !important;
+  color: var(--sport-white) !important;
+  box-shadow: var(--sport-shadow) !important;
+  border: 3px solid var(--sport-gold-light) !important;
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+}
+
+/* Chip */
+.MuiChip-root {
+  border-radius: 25px !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  box-shadow: var(--sport-shadow) !important;
+  background: var(--sport-gradient-gold) !important;
+  color: var(--sport-blue) !important;
+  border: 2px solid var(--sport-gold) !important;
+}
+
+/* Tabs */
+.MuiTabs-root {
+  background: var(--sport-white) !important;
+  border-radius: 15px !important;
+  margin-bottom: 30px !important;
+  box-shadow: var(--sport-shadow) !important;
+  border: 2px solid var(--sport-blue-light) !important;
+}
+.MuiTab-root {
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: var(--sport-blue) !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 1px !important;
+  transition: color 0.3s, transform 0.3s !important;
+}
+.MuiTab-root.Mui-selected {
+  color: var(--sport-gold) !important;
+  transform: scale(1.08) !important;
+  animation: glowGold 2s ease-in-out infinite !important;
+}
+
+/* Alert */
+.MuiAlert-root {
+  border-radius: 15px !important;
+  box-shadow: var(--sport-shadow) !important;
+  margin-bottom: 20px !important;
+  border: 2px solid var(--sport-gold) !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  font-weight: 500 !important;
+  color: #1a2340 !important;
+  background: var(--sport-gold-light) !important;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.sport-glow {
+  box-shadow: var(--sport-shadow-gold);
+  animation: glowGold 2s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stats-value { font-size: 2rem !important; }
+  .MuiButton-root { padding: 10px 18px !important; font-size: 1rem !important; }
+  .chart-container { padding: 16px !important; }
+}
+@media (max-width: 480px) {
+  .stats-value { font-size: 1.3rem !important; }
+  .MuiButton-root { padding: 8px 12px !important; font-size: 0.9rem !important; }
+  .chart-container { padding: 10px !important; }
+}
+
+/* Print styles */
+@media print {
+  .MuiBottomNavigation-root { display: none !important; }
+  .MuiCard-root { box-shadow: none !important; border: 1px solid #ddd !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

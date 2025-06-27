@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Box, BottomNavigation, BottomNavigationAction } from '@mui/material';
@@ -5,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import PersonIcon from '@mui/icons-material/Person';
+import './globals.css';
 
 import Home from './pages/Home';
 import Stats from './pages/Stats';
